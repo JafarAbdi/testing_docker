@@ -40,7 +40,7 @@ jobs:
     needs:
       - check-changed-files
       - docker-build-base
-    if: needs.check-changed-files.outputs.docker == 'true'
+    if: always() && needs.check-changed-files.outputs.docker == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
