@@ -19,12 +19,14 @@ jobs:
         uses: tj-actions/changed-files@v14.6
         id: docker-base
         with:
+          since_last_remote_commit: true
           files: |
             .docker/**
       - name: Check #2
         uses: tj-actions/changed-files@v14.6
         id: docker
         with:
+          since_last_remote_commit: true
           files: |
             .docker/**
             .github/workflows/docker_build.yaml
