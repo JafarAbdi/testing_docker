@@ -10,4 +10,4 @@ jobs:
   docker-build-base:
     runs-on: ubuntu-latest
     steps:
-      run: echo "Docker Build Base"
+      - run: echo "Docker Build Base"
