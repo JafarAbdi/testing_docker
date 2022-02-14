@@ -25,14 +25,15 @@ jobs:
             .docker/**
             .github/workflows/docker_build.yaml
   docker-build-base:
-    if: check-changed-files.outputs.docker-base == 'true'
+    needs: check-changed-files
+    if: needs.check-changed-files.outputs.docker-base == 'true'
     runs-on: ubuntu-latest
     steps:
       - run: echo "Docker Build Base"
   docker-build-external-repos:
-    if: check-changed-files.outputs.docker == 'true'
+    needs: check-changed-files
+    if: needs.check-changed-files.outputs.docker == 'true'
     runs-on: ubuntu-latest
-    # if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'succcess'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
