@@ -2,12 +2,35 @@ name: Docker Build
 on:
   workflow_dispatch:
   push:
-  workflow_run:
-    workflows: ["Docker Build Base"]
-    types: [completed]
 
 jobs:
+  check-changed-files:
+    runs-on: ubuntu-latest
+    outputs:
+      docker-base: ${{ steps.docker-base.outputs.any_changed }}
+      docker: ${{ steps.docker.outputs.any_changed }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check #1
+        uses: tj-actions/changed-files@v14.6
+        id: docker-base
+        with:
+          files: |
+            .docker/**
+      - name: Check #2
+        uses: tj-actions/changed-files@v14.6
+        id: docker
+        with:
+          files: |
+            .docker/**
+            .github/workflows/docker_build.yaml
+  docker-build-base:
+    if: jobs.check-changed-files.outputs.docker-base == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Docker Build Base"
   docker-build-external-repos:
+    if: jobs.check-changed-files.outputs.docker == 'true'
     runs-on: ubuntu-latest
     # if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'succcess'
     steps:
