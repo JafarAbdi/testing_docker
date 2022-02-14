@@ -33,7 +33,9 @@ jobs:
     steps:
       - run: echo "Docker Build Base"
   docker-build-external-repos:
-    needs: check-changed-files
+    needs:
+      - check-changed-files
+      - docker-build-base
     if: needs.check-changed-files.outputs.docker == 'true'
     runs-on: ubuntu-latest
     steps:
