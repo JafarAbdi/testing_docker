@@ -2,9 +2,6 @@ name: Docker Build
 on:
   workflow_dispatch:
   push:
-    paths:
-      - '.docker/**'
-      - '.github/workflows/docker_build.yaml'
   workflow_run:
     workflows: ["Docker Build Base"]
     types: [completed]
@@ -33,4 +30,3 @@ jobs:
         id: docker-tag
         uses: JafarAbdi/docker-tag-prefix-action@main
       - run: echo "picknikciuser/moveit-studio:${{ steps.docker-tag.outputs.prefix }}moveit-studio"
-
