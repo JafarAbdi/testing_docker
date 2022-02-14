@@ -29,7 +29,7 @@ jobs:
           since_last_remote_commit: true
           files: |
             .docker/**
-            .github/workflows/docker_build.yaml
+            .github/workflows/build_and_test.yaml
   docker-build-base:
     needs: check-changed-files
     if: needs.check-changed-files.outputs.docker-base == 'true'
