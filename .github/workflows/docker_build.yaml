@@ -12,7 +12,7 @@ on:
 jobs:
   docker-build-external-repos:
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'succcess'
+    # if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'succcess'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
