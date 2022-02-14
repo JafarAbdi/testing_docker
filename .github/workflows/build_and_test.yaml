@@ -1,0 +1,21 @@
+name: Build and Test
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Docker Build"]
+    types:
+      completed
+  pull_request:
+  push:
+
+jobs:
+  industrial_ci:
+    runs-on: ubuntu-latest
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get docker tag prefix
+        id: docker-tag
+        uses: JafarAbdi/docker-tag-prefix-action@main
+      - run: echo "picknikciuser/moveit-studio:${{ steps.docker-tag.outputs.prefix }}external-repos"
