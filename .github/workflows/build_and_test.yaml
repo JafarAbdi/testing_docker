@@ -32,7 +32,7 @@ jobs:
             .github/workflows/build_and_test.yaml
   docker-build-base:
     needs: check-changed-files
-    if: needs.check-changed-files.outputs.docker-base == 'true'
+    if: needs.check-changed-files.outputs.docker-base == 'true' && github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - run: echo "Docker Build Base"
