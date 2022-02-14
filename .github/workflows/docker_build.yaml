@@ -20,6 +20,9 @@ jobs:
         id: docker-tag
         uses: JafarAbdi/docker-tag-prefix-action@main
       - run: echo "picknikciuser/moveit-studio:${{ steps.docker-tag.outputs.prefix}}external-repos"
+      - env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
   docker-build-moveit-studio:
     runs-on: ubuntu-latest
     needs: docker-build-external-repos
