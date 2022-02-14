@@ -38,7 +38,7 @@ jobs:
     needs:
       - check-changed-files
       - docker-build-base
-    if: always() && needs.check-changed-files.outputs.docker == 'true'
+    if: always() && needs.check-changed-files.outputs.docker == 'true' && github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
