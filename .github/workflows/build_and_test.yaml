@@ -53,6 +53,8 @@ jobs:
       - name: Get docker tag prefix
         id: docker-tag
         uses: JafarAbdi/docker-tag-prefix-action@main
+        with:
+          pr_changed_files: 'true'
       - run: echo "picknikciuser/moveit-studio:${{ steps.docker-tag.outputs.prefix}}external-repos"
       - env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
