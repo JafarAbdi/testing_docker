@@ -21,14 +21,14 @@ jobs:
         with:
           fetch-depth: 0
       - name: Check
-        uses: tj-actions/changed-files@v14.6
+        uses: tj-actions/changed-files@v17.2
         id: docker-base
         with:
           since_last_remote_commit: true
           files: |
             .docker/**
       - name: Check
-        uses: tj-actions/changed-files@v14.6
+        uses: tj-actions/changed-files@v17.2
         id: docker
         with:
           since_last_remote_commit: true
