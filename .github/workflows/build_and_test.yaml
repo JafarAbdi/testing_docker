@@ -25,6 +25,7 @@ jobs:
         uses: tj-actions/changed-files@v17.2
         id: docker-base
         with:
+          sha: ${{ github.event.pull_request.head.sha }}
           since_last_remote_commit: true
           files: |
             .docker/**
@@ -32,6 +33,7 @@ jobs:
         uses: tj-actions/changed-files@v17.2
         id: docker
         with:
+          sha: ${{ github.event.pull_request.head.sha }}
           since_last_remote_commit: true
           files: |
             .docker/**
