@@ -41,8 +41,17 @@ jobs:
           files: |
             .docker/**
             .github/workflows/build_and_test.yaml
+      - name: Check .repos file to fallback to main's docker image
+        uses: tj-actions/changed-files@v14.6
+        id: external-repos-changed
+        with:
+          files: |
+            .docker/**
+            .github/workflows/build_and_test.yaml
   docker-build-base:
-    needs: check-changed-files
+    needs:
+      - check-changed-files
+      - external-repos-changed
     if: needs.check-changed-files.outputs.docker-base == 'true'
     runs-on: ubuntu-latest
     steps:
@@ -60,7 +69,7 @@ jobs:
         id: docker-tag
         uses: JafarAbdi/docker-tag-prefix-action@main
         with:
-          pr_changed_files: 'true'
+          pr_changed_files: ${{ steps.external-repos-changed.outputs.any_changed }}
       - run: echo "picknikciuser/moveit-studio:${{ steps.docker-tag.outputs.prefix}}external-repos"
       - env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
