@@ -12,7 +12,7 @@ jobs:
   check-changed-files:
     runs-on: ubuntu-latest
     outputs:
-      docker-prefix: ${{ steps.set-docker-tag.outputs.prefix }}
+      docker-prefix: ${{ steps.docker-tag.outputs.prefix }}
     steps:
       - uses: actions/checkout@v2
         with:
