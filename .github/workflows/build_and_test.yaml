@@ -41,4 +41,4 @@ jobs:
           fetch-depth: 0
         uses: actions/checkout@v2
       - name: Testing
-        run: echo "${{ needs.check-changed-files.output.docker-prefix }}"
+        run: echo ${{ needs.check-changed-files.output.docker-prefix }}
