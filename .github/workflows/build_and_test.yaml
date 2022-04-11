@@ -30,7 +30,7 @@ jobs:
         id: docker-tag
         uses: JafarAbdi/docker-tag-prefix-action@main
         with:
-          pr_changed_files: ${{ steps.external-repos-changed.outputs.any_changed }}
+          pr_changed_files: ${{ steps.external-repos-changed.outputs.any_changed || github.event_name == 'push' }}
       - run: echo "${{ steps.docker-tag.outputs.prefix }}"
   docker-build-external-repos:
     needs:
